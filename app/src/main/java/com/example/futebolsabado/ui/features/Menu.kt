@@ -18,15 +18,27 @@ import androidx.compose.ui.unit.sp
 import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
 
 @Composable
-fun MenuScreen() {
+fun MenuScreen(
+    onPlayersClick: () -> Unit,
+    onAddMatchClick: () -> Unit
+) {
+    MenuContent(
+        onPlayersClick = onPlayersClick,
+        onAddMatchClick = onAddMatchClick
+    )
 
 }
 
 @Composable
-fun MenuContent(modifier: Modifier = Modifier) {
+fun MenuContent(
+    onPlayersClick: () -> Unit,
+    onAddMatchClick: () -> Unit,
+    modifier: Modifier = Modifier
+
+) {
     Scaffold { padding ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,7 +56,7 @@ fun MenuContent(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(16.dp)
                     .size(250.dp)
-                    .clickable { }
+                    .clickable { onPlayersClick() }
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -62,7 +74,7 @@ fun MenuContent(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(16.dp)
                     .size(250.dp)
-                    .clickable { }
+                    .clickable { onAddMatchClick() }
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -82,7 +94,10 @@ fun MenuContent(modifier: Modifier = Modifier) {
 @Composable
 private fun MenuContentPreview(){
     FutebolSabadoTheme {
-        MenuContent()
+        MenuContent(
+            onPlayersClick = {},
+            onAddMatchClick = {}
+        )
     }
 }
 
