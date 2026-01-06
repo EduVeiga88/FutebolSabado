@@ -71,10 +71,11 @@ android {
 
         // Hilt
         implementation(libs.hilt.android)
-        implementation(libs.androidx.material3)
-        implementation(libs.androidx.ui)
+        implementation(libs.androidx.compose.material3)
+        implementation(libs.androidx.compose.ui)
         ksp(libs.hilt.compiler)
         implementation(libs.androidx.hilt.navigation.compose)
+        implementation(libs.javapoet)
 
         // Room
         implementation(libs.androidx.room.runtime)

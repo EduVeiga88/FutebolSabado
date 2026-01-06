@@ -1,12 +1,12 @@
 package com.example.futebolsabado.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.futebolsabado.ui.features.MenuScreen
-import com.example.futebolsabado.ui.features.PlayersListScreen
+import com.example.futebolsabado.ui.features.addMatch.AddMatchScreen
+import com.example.futebolsabado.ui.features.menu.MenuScreen
+import com.example.futebolsabado.ui.features.playersList.PlayersListScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -37,7 +37,8 @@ fun FutebolSabadoNavHost() {
 
         }
         composable<AddMatchRoute>{
-            Text("AddMatchScreen(EmContrução)")
+
+            AddMatchScreen()
         }
     }
 }

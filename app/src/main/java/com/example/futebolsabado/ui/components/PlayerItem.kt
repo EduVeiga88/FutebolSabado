@@ -15,13 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.futebolsabado.domain.Jogador
+import com.example.futebolsabado.domain.Player
 import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
 
 @Composable
 fun PlayerItem(
     modifier: Modifier = Modifier,
-    jogador: Jogador
+    player: Player
 
 ) {
     Surface(
@@ -40,18 +40,18 @@ fun PlayerItem(
                 .padding(10.dp),
             horizontalAlignment = Alignment.Start
         ) {
-            Text(jogador.nome, style = MaterialTheme.typography.labelMedium)
+            Text(player.nome, style = MaterialTheme.typography.labelMedium)
 
             Row(
                 modifier = Modifier
                     .padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Jogos:${jogador.jogos}", style = MaterialTheme.typography.labelSmall,)
+                Text("Jogos:${player.jogos}", style = MaterialTheme.typography.labelSmall,)
                 Spacer(modifier = Modifier.width(5.dp))
-                Text("Vitorias:${jogador.vitorias}", style = MaterialTheme.typography.labelSmall)
+                Text("Vitorias:${player.vitorias}", style = MaterialTheme.typography.labelSmall)
                 Spacer(modifier = Modifier.width(5.dp))
-                Text("Golos:${jogador.golos}", style = MaterialTheme.typography.labelSmall)
+                Text("Golos:${player.golos}", style = MaterialTheme.typography.labelSmall)
             }
         }
     }
@@ -62,7 +62,8 @@ fun PlayerItem(
 private fun PlayerItemPreview() {
     FutebolSabadoTheme {
         PlayerItem(
-            jogador = Jogador(
+            player = Player(
+                id = 1,
                 nome = "Pedro",
                 jogos = 10,
                 vitorias = 6,
