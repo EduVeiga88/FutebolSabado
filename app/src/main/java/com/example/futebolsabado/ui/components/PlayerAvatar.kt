@@ -22,16 +22,21 @@ import com.example.futebolsabado.domain.Player
 import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
 
 @Composable
-fun PlayerAvatar(modifier: Modifier = Modifier, player: Player) {
+fun PlayerAvatar(
+    modifier: Modifier = Modifier,
+    player: Player,
+    isSelected: Boolean
+) {
+    val bgColor = if (isSelected) Color.DarkGray else Color.Gray
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(8.dp)
+        modifier = modifier.padding(8.dp)
     ) {
     Box(
         modifier = modifier
             .clip(CircleShape)
             .size(64.dp)
-            .background(Color.Gray),
+            .background(bgColor),
         contentAlignment = Alignment.Center
     ){
         Text(
@@ -41,7 +46,7 @@ fun PlayerAvatar(modifier: Modifier = Modifier, player: Player) {
         )
     }
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = modifier.height(4.dp))
 
         Text(
             text = player.nome
@@ -62,7 +67,9 @@ private fun PlayerAvatarPreview() {
                 jogos = 10,
                 vitorias = 6,
                 golos = 12
-            )
+            ),
+            modifier = Modifier,
+            isSelected = true
         )
     }
 

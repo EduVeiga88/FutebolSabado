@@ -3,11 +3,13 @@ package com.example.futebolsabado.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.futebolsabado.domain.Player
 import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
 
@@ -17,11 +19,11 @@ fun PlayerGoalRow(
     goals: Int,
     onInc: () -> Unit,
     onDec: () -> Unit,
-    function: () -> Unit
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -43,7 +45,7 @@ private fun PlayerGoalRowPreview() {
             goals = 2,
             onInc = {},
             onDec = {}
-        ) { }
+        )
     }
 
 }
