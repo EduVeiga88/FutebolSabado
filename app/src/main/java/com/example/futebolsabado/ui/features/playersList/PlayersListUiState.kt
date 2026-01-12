@@ -1,6 +1,6 @@
 package com.example.futebolsabado.ui.features.playersList
 
-import com.example.futebolsabado.domain.Player
+import com.example.futebolsabado.domain.model.Player
 
 sealed class PlayersListUiState {
 

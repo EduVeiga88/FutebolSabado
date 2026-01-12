@@ -1,7 +1,6 @@
-package com.example.futebolsabado.data
+package com.example.futebolsabado.domain.repository
 
-import com.example.futebolsabado.domain.Player
-import com.example.futebolsabado.ui.features.playersList.PlayersListUiState
+import com.example.futebolsabado.domain.model.Player
 import kotlinx.coroutines.flow.Flow
 
 interface PlayerRepository {

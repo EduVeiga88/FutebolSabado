@@ -3,8 +3,9 @@ package com.example.futebolsabado.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.futebolsabado.data.PlayerDao
-import com.example.futebolsabado.data.PlayerDatabase
+import com.example.futebolsabado.data.dao.MatchDao
+import com.example.futebolsabado.data.dao.PlayerDao
+import com.example.futebolsabado.data.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,14 +21,22 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ): PlayerDatabase {
+    ): AppDatabase {
         return Room.databaseBuilder(
             context,
-            PlayerDatabase::class.java,
+            AppDatabase::class.java,
             "player_db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
-    fun providePlayerDao(db: PlayerDatabase): PlayerDao = db.playerDao
+    fun providePlayerDao(db: AppDatabase): PlayerDao =
+        db.playerDao()
+
+    @Provides
+    fun provideMatchDao(db: AppDatabase): MatchDao =
+        db.matchDao()
 }
+

@@ -1,4 +1,4 @@
-package com.example.futebolsabado.domain
+package com.example.futebolsabado.domain.model
 
 data class Player(
     val id: Int,

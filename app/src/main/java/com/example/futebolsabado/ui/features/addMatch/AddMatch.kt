@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
@@ -27,112 +28,37 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.futebolsabado.domain.Match
-import com.example.futebolsabado.domain.Player
-import com.example.futebolsabado.domain.TeamPickFase
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.futebolsabado.domain.model.Match
+import com.example.futebolsabado.domain.model.Player
+import com.example.futebolsabado.domain.model.TeamPickFase
 import com.example.futebolsabado.ui.components.PlayerAvatar
 import com.example.futebolsabado.ui.components.PlayerGoalRow
 import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
 
 @Composable
-fun AddMatchScreen() {
+fun AddMatchScreen(
+    viewModel: AddMatchViewModel = hiltViewModel()
+        ) {
     FutebolSabadoTheme {
-        val players = listOf(
-            Player(id = 1,  "Pedro",10,  6, 12),
-            Player(id = 2, "Luis", 8, 3, 5),
-            Player(id = 3, "Butra",8, 3, 5),
-            Player(id = 4, "JP", 8, 3, 5),
-            Player(id = 5, "Toze",8, 3, 5),
-            Player(id = 6, "Edu", 8, 3, 5),
-            Player(id = 7, "Almerindo",8, 3, 5),
-            Player(id = 8, "Paulo",8, 3, 5),
-            Player(id = 9, "Silva", 8, 3, 5),
-            Player(id = 10, "João", 8, 3, 5)
-        )
-
-
-        val coletes = remember { mutableStateListOf<Int>() }
-        val semColetes = remember { mutableStateListOf<Int>() }
-        var phase = remember { TeamPickFase.COLETES }
-
-
-        val goalsByPlayer = remember { mutableStateMapOf<Int, Int>() }
-
-        fun isSelectedAnyTeam(id: Int): Boolean = id in coletes || id in semColetes
-
-        fun togglePick(id: Int) {
-            when (phase) {
-                TeamPickFase.COLETES -> {
-
-                    if (id in coletes) {
-                        coletes.remove(id)
-                        return
-                    }
-
-
-                    if (id in semColetes) return
-
-                    // max 5
-                    if (coletes.size >= 5) return
-
-                    coletes.add(id)
-
-
-                    if (coletes.size == 5) phase = TeamPickFase.SEMCOLETES
-                }
-
-                TeamPickFase.SEMCOLETES -> {
-                    if (id in semColetes) {
-                        semColetes.remove(id)
-                        return
-                    }
-
-                    if (id in coletes) return
-                    if (semColetes.size >= 5) return
-
-                    semColetes.add(id)
-
-                    if (semColetes.size == 5) phase = TeamPickFase.DONE
-                }
-
-                TeamPickFase.DONE -> {
-
-                    return
-                }
-            }
-        }
-
-        fun incGoal(playerId: Int) {
-
-            if (!isSelectedAnyTeam(playerId)) return
-            val current = goalsByPlayer[playerId] ?: 0
-            goalsByPlayer[playerId] = current + 1
-        }
-
-        fun decGoal(playerId: Int) {
-            if (!isSelectedAnyTeam(playerId)) return
-            val current = goalsByPlayer[playerId] ?: 0
-            if (current <= 0) return
-            goalsByPlayer[playerId] = current - 1
-        }
-
-        fun addMatch(match: Match){
-
-        }
+        val state by viewModel.uiState.collectAsStateWithLifecycle()
 
         AddMatchContent(
-            players = players,
-            coletes = coletes,
-            semColetes = semColetes,
-            phase = phase,
-            goalsByPlayer = goalsByPlayer,
-            onPlayerClick = ::togglePick,
-            onIncrementGoal = ::incGoal,
-            onDecrementGoal = ::decGoal,
-            onAddMatchClick = addMatch
+            players = state.players,
+            coletes = state.coletes,
+            semColetes = state.semColetes,
+            phase = state.phase,
+            goalsByPlayer = state.goalsByPlayer,
+            onPlayerClick = { id -> viewModel.onEvent(AddMatchEvent.PlayerClicked(id)) },
+            onIncrementGoal = { id -> viewModel.onEvent(AddMatchEvent.IncrementGoal(id)) },
+            onDecrementGoal = { id -> viewModel.onEvent(AddMatchEvent.DecrementGoal(id)) },
+            onAddMatchClick = { viewModel.onEvent(AddMatchEvent.SaveMatch) }
         )
     }
 }
+
+
 
 @Composable
 fun AddMatchContent(

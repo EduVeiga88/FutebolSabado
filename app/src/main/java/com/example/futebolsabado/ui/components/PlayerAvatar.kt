@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.futebolsabado.domain.Player
+import com.example.futebolsabado.domain.model.Player
 import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
 
 @Composable

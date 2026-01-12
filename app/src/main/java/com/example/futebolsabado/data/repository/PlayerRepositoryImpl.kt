@@ -1,6 +1,9 @@
-package com.example.futebolsabado.data
+package com.example.futebolsabado.data.repository
 
-import com.example.futebolsabado.domain.Player
+import com.example.futebolsabado.data.dao.PlayerDao
+import com.example.futebolsabado.data.entity.PlayerEntity
+import com.example.futebolsabado.domain.model.Player
+import com.example.futebolsabado.domain.repository.PlayerRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -9,7 +12,7 @@ class PlayerRepositoryImpl @Inject constructor(
 
     private val dao: PlayerDao
 
-) : PlayerRepository{
+) : PlayerRepository {
     override suspend fun insert(
         nome: String,
         jogos: Int,

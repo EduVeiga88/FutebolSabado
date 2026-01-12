@@ -1,4 +1,4 @@
-package com.example.futebolsabado.domain
+package com.example.futebolsabado.domain.model
 
 enum class TeamPickFase {
     COLETES,

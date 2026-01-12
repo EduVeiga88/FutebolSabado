@@ -1,4 +1,4 @@
-package com.example.futebolsabado.data
+package com.example.futebolsabado.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
