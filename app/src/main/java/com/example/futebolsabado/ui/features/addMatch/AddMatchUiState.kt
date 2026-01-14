@@ -11,5 +11,5 @@ data class AddMatchUiState(
     val goalsByPlayer: Map<Int, Int> = emptyMap(),
     val isSaving: Boolean = false,
     val error: String? = null,
-    val savedMatchId: Long? = null // útil para navegação depois
+    val savedMatchId: Long? = null
 )

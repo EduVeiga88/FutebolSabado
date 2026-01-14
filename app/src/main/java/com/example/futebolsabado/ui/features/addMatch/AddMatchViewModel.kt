@@ -102,7 +102,7 @@ class AddMatchViewModel @Inject constructor(
     private fun saveMatch() {
         val state = _uiState.value
 
-        // validação mínima
+
         val canSave = state.coletes.size == 5 && state.semColetes.size == 5 && state.phase == TeamPickFase.DONE
         if (!canSave) {
             _uiState.update { it.copy(error = "Escolhe 5 jogadores por equipa antes de guardar.") }

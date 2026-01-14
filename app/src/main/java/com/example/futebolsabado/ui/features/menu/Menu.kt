@@ -1,12 +1,15 @@
 package com.example.futebolsabado.ui.features.menu
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Card
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.Payments
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.SportsSoccer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -16,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.futebolsabado.ui.components.MenuCard
 import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
+
 
 @Composable
 fun MenuScreen(
@@ -27,7 +32,6 @@ fun MenuScreen(
         onPlayersClick = onPlayersClick,
         onAddMatchClick = onAddMatchClick
     )
-
 }
 
 @Composable
@@ -41,9 +45,10 @@ fun MenuContent(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(padding),
+                .padding(padding)
+                .padding(top = 75.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
 
             Text(
@@ -53,41 +58,34 @@ fun MenuContent(
                 modifier = Modifier.padding(bottom = 30.dp)
             )
 
-            Card(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(250.dp)
-                    .clickable { onPlayersClick() }
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = "Jogadores",
-                        fontSize = 20.sp,
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
-            }
+            Row {
+                MenuCard(
+                    title = "Jogadores",
+                    icon = Icons.Default.Person,
+                    onClick = onPlayersClick
 
-            Card(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .size(250.dp)
-                    .clickable { onAddMatchClick() }
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = "Add Jogo")
+                )
+                MenuCard(
+                    title = "Jogos",
+                    icon = Icons.Default.SportsSoccer,
+                    onClick = onAddMatchClick
+                )
+            }
+                Row {
+                    MenuCard(
+                        title = "Estatisticas",
+                        icon = Icons.Default.BarChart,
+                        onClick = {}
+                    )
+                    MenuCard(
+                        title = "Pagamentos",
+                        icon = Icons.Default.Payments,
+                        onClick = {}
+                    )
                 }
             }
         }
     }
-}
 
 
 
