@@ -112,7 +112,7 @@ fun AddPlayerContent(
 
             )
             Button(
-                onClick = {},
+                onClick = onSaved,
                 enabled = name.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth()

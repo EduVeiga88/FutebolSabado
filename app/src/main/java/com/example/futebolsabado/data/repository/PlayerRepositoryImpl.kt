@@ -55,7 +55,7 @@ class PlayerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBy(id: Int): Player? {
-        return getBy(id)?.let {entity ->
+        return dao.getBy(id)?.let {entity ->
             Player(
                 id = entity.id,
                 nome = entity.nome,

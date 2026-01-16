@@ -25,6 +25,12 @@ class PlayersListViewModel @Inject constructor(
         observePlayers()
     }
 
+    fun onDeletePlayer(id: Int){
+        viewModelScope.launch {
+            repository.delete(id)
+        }
+    }
+
     private fun observePlayers() {
         viewModelScope.launch {
             repository.getAll()

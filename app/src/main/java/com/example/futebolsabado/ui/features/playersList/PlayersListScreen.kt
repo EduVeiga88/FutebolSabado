@@ -47,7 +47,8 @@ fun PlayersListScreen(
                 PlayersListUiState.Empty -> Text("Sem jogadores")
                 is PlayersListUiState.Success -> {
                     PlayersListContent(
-                        players = state.players
+                        players = state.players,
+                        onDelete = viewModel::onDeletePlayer
                     )
                 }
                 is PlayersListUiState.Error -> Text("Erro: ${state.message}")
@@ -59,7 +60,8 @@ fun PlayersListScreen(
 
 @Composable
 fun PlayersListContent(
-    players: List<Player>
+    players: List<Player>,
+    onDelete: (id:Int) -> Unit
 )   {
     LazyColumn(
         modifier = Modifier
@@ -70,8 +72,8 @@ fun PlayersListContent(
         items(players) { player ->
             PlayerItem(
                 player = player,
-                modifier = Modifier.padding(bottom = 8.dp)
-
+                modifier = Modifier.padding(bottom = 8.dp),
+                onDelete = onDelete
             )
         }
     }
@@ -86,7 +88,8 @@ private fun PlayersListPreview() {
                 players = listOf(
                     Player(id = 1, nome = "Pedro", jogos = 10, vitorias = 6, golos = 12),
                     Player(id = 2, "João", 8, 3, 5)
-                )
+                ),
+                onDelete = {}
             )
     }
 }

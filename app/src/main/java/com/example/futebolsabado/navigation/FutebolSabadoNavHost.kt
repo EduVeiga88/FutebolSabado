@@ -38,7 +38,7 @@ fun FutebolSabadoNavHost() {
         composable<PlayersRoute>{
 
             PlayersListScreen(
-                onAddPlayerClick = {navController.navigate(AddPlayerRoute)}
+                onAddPlayerClick = { navController.navigate(AddPlayerRoute) }
             )
 
 

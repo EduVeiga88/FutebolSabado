@@ -4,7 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.futebolsabado.domain.repository.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -19,7 +22,9 @@ data class AddPlayerUiState(
 
 
 @HiltViewModel
-class AddPlayerViewModel @Inject constructor() : ViewModel() {
+class AddPlayerViewModel @Inject constructor(
+    private val repository: PlayerRepository
+) : ViewModel() {
 
     var uiState by mutableStateOf(AddPlayerUiState())
         private set
@@ -45,9 +50,19 @@ class AddPlayerViewModel @Inject constructor() : ViewModel() {
         val vitorias = uiState.vitoriasText.toIntOrNull() ?: 0
         val golos = uiState.golosText.toIntOrNull() ?: 0
 
-        if (uiState.name.isBlank()) return
+        viewModelScope.launch {
+            repository.insert(
+                nome = uiState.name.trim(),
+                jogos = jogos,
+                vitorias = vitorias,
+                golos = golos
+            )
 
-        onSuccess()
+            onSuccess()
+        }
+
+
+
     }
 
 }
