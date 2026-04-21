@@ -1,6 +1,6 @@
 package com.example.futebolsabado.domain.model
 
-import java.time.LocalDateTime
+import java.util.Date
 
 data class Match(
     val id: Long = 0,
@@ -9,5 +9,5 @@ data class Match(
     val goals: Map<Long, Int>,
     val scoreColetes: Int,
     val scoreSemColetes: Int,
-    val date: LocalDateTime
+    val createdAt: Long
 )

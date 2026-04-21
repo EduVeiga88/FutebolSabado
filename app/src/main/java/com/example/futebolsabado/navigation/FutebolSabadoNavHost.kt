@@ -6,7 +6,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.futebolsabado.ui.features.addMatch.AddMatchScreen
 import com.example.futebolsabado.ui.features.addPlayer.AddPlayerScreen
+import com.example.futebolsabado.ui.features.matchList.MatchListScreen
 import com.example.futebolsabado.ui.features.menu.MenuScreen
+import com.example.futebolsabado.ui.features.pagamentos.PagamentosScreen
 import com.example.futebolsabado.ui.features.playersList.PlayersListScreen
 import kotlinx.serialization.Serializable
 
@@ -17,11 +19,15 @@ object MenuRoute
 object PlayersRoute
 
 @Serializable
+object AddPlayerRoute
+
+@Serializable
+object MatchRoute
+@Serializable
 object AddMatchRoute
 
 @Serializable
-object AddPlayerRoute
-
+object PagamentosRoute
 
 
 @Composable
@@ -31,8 +37,8 @@ fun FutebolSabadoNavHost() {
         composable<MenuRoute>{
             MenuScreen(
                         onPlayersClick = { navController.navigate(PlayersRoute)},
-                        onAddMatchClick = { navController.navigate(AddMatchRoute)
-                }
+                        onMatchClick = { navController.navigate(MatchRoute)},
+                        onPagamentosClick = {navController.navigate(PagamentosRoute)}
             )
         }
         composable<PlayersRoute>{
@@ -43,15 +49,27 @@ fun FutebolSabadoNavHost() {
 
 
         }
-        composable<AddMatchRoute>{
-
-            AddMatchScreen()
-        }
         composable<AddPlayerRoute>{
             AddPlayerScreen(
                 onBack = {navController.popBackStack()},
                 onSaved = {navController.popBackStack()}
             )
         }
+        composable<MatchRoute>{
+
+            MatchListScreen(
+                onAddMatchClick = {navController.navigate(AddMatchRoute)}
+            )
+        }
+        composable<AddMatchRoute> {
+            AddMatchScreen(
+                onSaved = {navController.popBackStack()},
+                onBack = {navController.popBackStack()}
+            )
+        }
+        composable<PagamentosRoute>{
+            PagamentosScreen()
+        }
+
     }
 }

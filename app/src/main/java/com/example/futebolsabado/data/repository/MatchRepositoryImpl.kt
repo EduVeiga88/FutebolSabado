@@ -4,7 +4,11 @@ import com.example.futebolsabado.data.dao.MatchDao
 import com.example.futebolsabado.data.entity.MatchEntity
 import com.example.futebolsabado.data.entity.MatchPlayerEntity
 import com.example.futebolsabado.domain.model.CreateMatchRequest
+import com.example.futebolsabado.domain.model.Match
+import com.example.futebolsabado.domain.model.Player
 import com.example.futebolsabado.domain.repository.MatchRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 private const val TEAM_COLETES = "COLETES"
@@ -55,4 +59,40 @@ class MatchRepositoryImpl @Inject constructor(
         return matchDao.insertMatchWithPlayers(match, players)
     }
 
+    override suspend fun delete(id: Long) {
+        val existingMatch = matchDao.getMatchById(id) ?: return
+        matchDao.delete(existingMatch)
+    }
+
+    override fun getAllMatchs(): Flow<List<Match>> {
+        return matchDao.getAllMatchs().map {entities ->
+            entities.map {entity ->
+                Match(
+                    id = entity.id,
+                    scoreColetes = entity.scoreColetes,
+                    scoreSemColetes = entity.scoreSemColetes,
+                    createdAt = entity.createdAt,
+                    coletes = emptyList(),
+                    semColetes = emptyList(),
+                    goals = emptyMap()
+                )
+
+            }
+
+        }
+    }
+
+    override suspend fun getMatchById(id: Long): Match? {
+        return matchDao.getMatchById(id)?.let {entity ->
+            Match(
+                id = entity.id,
+                scoreColetes = entity.scoreColetes,
+                scoreSemColetes = entity.scoreSemColetes,
+                createdAt = entity.createdAt,
+                coletes = emptyList(),
+                semColetes = emptyList(),
+                goals = emptyMap()
+            )
+        }
+    }
 }

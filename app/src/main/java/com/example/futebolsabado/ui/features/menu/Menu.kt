@@ -26,18 +26,22 @@ import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
 @Composable
 fun MenuScreen(
     onPlayersClick: () -> Unit,
-    onAddMatchClick: () -> Unit
+    onMatchClick: () -> Unit,
+    onPagamentosClick: () -> Unit
 ) {
     MenuContent(
         onPlayersClick = onPlayersClick,
-        onAddMatchClick = onAddMatchClick
+        onMatchClick = onMatchClick,
+        onPagamentosClick = onPagamentosClick,
+        
     )
 }
 
 @Composable
 fun MenuContent(
     onPlayersClick: () -> Unit,
-    onAddMatchClick: () -> Unit,
+    onMatchClick: () -> Unit,
+    onPagamentosClick: () -> Unit,
     modifier: Modifier = Modifier
 
 ) {
@@ -68,7 +72,7 @@ fun MenuContent(
                 MenuCard(
                     title = "Jogos",
                     icon = Icons.Default.SportsSoccer,
-                    onClick = onAddMatchClick
+                    onClick = onMatchClick
                 )
             }
                 Row {
@@ -80,7 +84,7 @@ fun MenuContent(
                     MenuCard(
                         title = "Pagamentos",
                         icon = Icons.Default.Payments,
-                        onClick = {}
+                        onClick = onPagamentosClick
                     )
                 }
             }
@@ -95,7 +99,8 @@ private fun MenuContentPreview(){
     FutebolSabadoTheme {
         MenuContent(
             onPlayersClick = {},
-            onAddMatchClick = {}
+            onMatchClick = {},
+            onPagamentosClick = {},
         )
     }
 }

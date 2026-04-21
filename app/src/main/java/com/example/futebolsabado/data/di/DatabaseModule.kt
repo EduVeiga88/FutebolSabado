@@ -6,6 +6,9 @@ import androidx.room.Room
 import com.example.futebolsabado.data.dao.MatchDao
 import com.example.futebolsabado.data.dao.PlayerDao
 import com.example.futebolsabado.data.db.AppDatabase
+import com.example.futebolsabado.data.local.dao.PaymentDao
+import com.example.futebolsabado.data.repository.PaymentRepositoryImpl
+import com.example.futebolsabado.domain.repository.PaymentRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +41,14 @@ object DatabaseModule {
     @Provides
     fun provideMatchDao(db: AppDatabase): MatchDao =
         db.matchDao()
+    @Provides
+    fun providePaymentDao(database: AppDatabase): PaymentDao {
+        return database.paymentDao()
+    }
+
+    @Provides
+    fun providePaymentRepository(dao: PaymentDao): PaymentRepository {
+        return PaymentRepositoryImpl(dao)
+    }
 }
 

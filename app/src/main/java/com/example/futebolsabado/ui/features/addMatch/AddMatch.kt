@@ -20,9 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.futebolsabado.domain.model.Match
 import com.example.futebolsabado.domain.model.Player
 import com.example.futebolsabado.domain.model.TeamPickFase
 import com.example.futebolsabado.ui.components.PlayerAvatar
@@ -39,7 +35,10 @@ import com.example.futebolsabado.ui.theme.FutebolSabadoTheme
 
 @Composable
 fun AddMatchScreen(
-    viewModel: AddMatchViewModel = hiltViewModel()
+    viewModel: AddMatchViewModel = hiltViewModel(),
+    onSaved: () -> Unit,
+    onBack:() -> Unit
+
         ) {
     FutebolSabadoTheme {
         val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -223,5 +222,8 @@ fun AddMatchContent(
 @Preview
 @Composable
 private fun AddMatchPreview() {
-    AddMatchScreen()
+    AddMatchScreen(
+        onSaved = { },
+        onBack = {}
+    )
 }

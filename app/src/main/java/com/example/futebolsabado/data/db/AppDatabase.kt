@@ -9,18 +9,25 @@ import com.example.futebolsabado.data.entity.PlayerEntity
 import com.example.futebolsabado.data.dao.PlayerDao
 import com.example.futebolsabado.data.entity.MatchEntity
 import com.example.futebolsabado.data.entity.MatchPlayerEntity
+import com.example.futebolsabado.data.entity.PaymentsEntity
+import com.example.futebolsabado.data.local.dao.PaymentDao
+
 @Database(
     entities = [
         PlayerEntity::class,
         MatchEntity::class,
-        MatchPlayerEntity::class
+        MatchPlayerEntity::class,
+        PaymentsEntity::class
+
     ],
-    version = 2
+    version = 4
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun playerDao(): PlayerDao
     abstract fun matchDao(): MatchDao
+
+    abstract fun paymentDao(): PaymentDao
 }
 
 

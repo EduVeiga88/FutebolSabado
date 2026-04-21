@@ -4,15 +4,17 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import androidx.room.Transaction
 import com.example.futebolsabado.data.entity.MatchEntity
 import com.example.futebolsabado.data.entity.MatchPlayerEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MatchDao {
 
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
-    suspend fun insertMatch(match: MatchEntity) : Long
+    suspend fun addMatch(match: MatchEntity) : Long
 
     @Insert
     suspend fun insertMatchPlayers(players: List<MatchPlayerEntity>)
@@ -25,7 +27,7 @@ interface MatchDao {
         match: MatchEntity,
         players: List<MatchPlayerEntity>
     ): Long {
-        val matchId = insertMatch(match)
+        val matchId = addMatch(match)
         val playersWithMatchId = players.map { p ->
             p.copy(matchId = matchId)
         }
@@ -34,5 +36,12 @@ interface MatchDao {
 
         return matchId
     }
+
+    @Query("SELECT * FROM `match`")
+    fun getAllMatchs(): Flow<List<MatchEntity>>
+
+    @Query("SELECT * FROM `match` WHERE id = :id")
+    suspend fun getMatchById(id: Long): MatchEntity?
+
 
 }
